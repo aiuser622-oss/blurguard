@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Recreer le projet
         run: |
@@ -175,11 +175,12 @@ jobs:
           YWRsZS13cmFwcGVyLnByb3BlcnRpZXNVVAUAA36Z+Wp1eAsAAQQAAAAABAAAAABQSwUGAAAAABsAGwAdCwAArC0AAAAA
           EOF
           unzip -q p.zip
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
-      - uses: android-actions/setup-android@v3
+      - name: Licences Android
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.7
